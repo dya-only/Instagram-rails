@@ -1,24 +1,10 @@
-# README
+Ruby on Rails Backend Template
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## UserController
+ - GET  [/api/user]        : getAll
+ - GET  [/api/user/:id]    : findById     (params: id)
+ - POST [/api/user/avatar] : uploadAvatar (body: id, avatar)
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## AuthController
+ - POST [/api/auth/signup] : sign_up      (body: email, name, username, password, avatar)
+ - POST [/api/auth/login]  : login        (body: email, password)
