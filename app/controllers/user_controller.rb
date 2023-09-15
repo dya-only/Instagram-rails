@@ -1,20 +1,53 @@
 class UserController < ApplicationController
-  def getAll
-    render json: User.all
+  before_action :authorize_request, :except => :create_user
+
+  def create_user
+    if User.find_by(email: params[:email]).nil?
+      @user = User.new
+
+      @user.email = params[:email]
+      @user.name = params[:name]
+      @user.username = params[:username]
+      @user.password = params[:password]
+      @user.avatar = params[:avatar]
+      @user.save
+
+      render json: {
+        success: true,
+        body: @user
+      }
+    else
+      render json: {
+        success: false,
+        message: '이메일이 이미 사용되었습니다.'
+      }
+    end
   end
 
-  def findById
-    render json: User.find_by(id: params[:id])
+  def find_all
+    render json: {
+      success: true,
+      body: User.all
+    }
   end
 
-  def uploadAvatar
+  def find_by_id
+    render json: {
+      success: true,
+      body: User.find_by(id: params[:id])
+    }
+  end
+
+  def upload_avatar
     @id = params[:id]
     @avatar = params[:avatar]
-
     @user = User.find_by(id: @id)
     @user.avatar = @avatar
     @user.save
 
-    render json: @user
+    render json: {
+      success: true,
+      body: @user
+    }
   end
 end

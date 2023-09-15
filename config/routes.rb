@@ -4,10 +4,11 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
-  get '/api/user' => 'user#getAll', controller: 'user'
-  get '/api/user/:id' => 'user#findById', controller: 'user'
-  post '/api/user/avatar' => 'user#uploadAvatar', controller: 'user'
+  post '/api/user' => 'user#create_user', controller: 'user'
+  get '/api/user' => 'user#find_all', controller: 'user'
+  get '/api/user/:id' => 'user#find_by_id', controller: 'user'
+  patch '/api/user/avatar' => 'user#upload_avatar', controller: 'user'
 
-  post '/api/auth/signup' => 'auth#sign_up', controller: 'auth'
   post '/api/auth/login' => 'auth#login', controller: 'auth'
+  post '/api/auth/verify' => 'auth#verify', controller: 'auth'
 end

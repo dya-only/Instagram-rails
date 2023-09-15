@@ -1,45 +1,34 @@
 class AuthController < ApplicationController
-  def sign_up
-    if User.find_by(email: params[:email]).nil?
-      @user = User.new
-
-      @user.email = params[:email]
-      @user.name = params[:name]
-      @user.username = params[:username]
-      @user.password = params[:password]
-      @user.avatar = params[:avatar]
-      @user.save
-
-      render json: { message: @user }, status: :ok
-    else
-      render json: { message: '이메일이 이미 사용되었습니다.' }, status: :unauthorized
-    end
-  end
-
   def login
     @email = params[:email]
     @password = params[:password]
+    @user = User.find_by(email: @email)
 
-    create_token(@email, @password)
-  end
+    if @user && @user.password == @password
+      @token = encode_token(@user.id)
 
-  def create_token(email, password)
-    user = User.find_by(email: email)
-
-    if user && user.password == password
-      token = encode_token(user.id, user.email, user.username)
-      render json: { token: token }, status: :ok
+      render json: {
+        success: true,
+        token: @token
+      }
     else
-      render json: { message: '이메일 또는 비밀번호가 틀렸습니다.' }, status: :unauthorized
+      render json: {
+        success: false,
+        message: '이메일 또는 비밀번호가 틀렸습니다.'
+      }
     end
   end
 
-  private
+  def verify
+    @token = params[:token]
+    render json: {
+      success: true,
+      body: JWT.decode(@token, Rails.application.secrets.secret_key_base)[0]
+    }
+  end
 
-  def encode_token(id, email, username)
-    payload = { id: id, email: email, username: username }
-    expires_in = 3.day
-
-    JWT.encode(payload, Rails.application.secrets.secret_key_base, exp: Time.now.to_i + expires_in)
+  def encode_token(id)
+    payload = { id: id, exp: (Time.now + 3.day).to_i }
+    JWT.encode(payload, Rails.application.secrets.secret_key_base)
   end
 end
