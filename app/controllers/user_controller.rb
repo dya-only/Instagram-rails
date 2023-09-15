@@ -10,6 +10,8 @@ class UserController < ApplicationController
       @user.username = params[:username]
       @user.password = params[:password]
       @user.avatar = params[:avatar]
+      @user.bookmarks = '[]'
+      @user.likes = '[]'
       @user.save
 
       render json: {

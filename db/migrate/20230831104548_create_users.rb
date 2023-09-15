@@ -6,6 +6,8 @@ class CreateUsers < ActiveRecord::Migration[7.0]
       t.string :name
       t.string :username
       t.string :password
+      t.binary :bookmarks, default: '[]', limit: 10.megabyte
+      t.binary :likes, default: '[]', limit: 10.megabyte
 
       t.timestamps
     end
