@@ -40,6 +40,13 @@ class UserController < ApplicationController
     }
   end
 
+  def find_by_name
+    render json: {
+      success: true,
+      body: User.find_by(username: params[:username])
+    }
+  end
+
   def upload_avatar
     @id = params[:id]
     @avatar = params[:avatar]

@@ -21,10 +21,17 @@ class AuthController < ApplicationController
 
   def verify
     @token = params[:token]
-    render json: {
-      success: true,
-      body: JWT.decode(@token, Rails.application.secrets.secret_key_base)[0]
-    }
+
+    begin
+      render json: {
+        success: true,
+        body: JWT.decode(@token, Rails.application.secrets.secret_key_base)[0]
+      }
+    rescue
+      render json: {
+        success: false
+      }
+    end
   end
 
   def encode_token(id)

@@ -29,6 +29,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_15_111605) do
     t.string "password"
     t.binary "bookmarks", size: :medium, default: -> { "X'5b5d'" }
     t.binary "likes", size: :medium, default: -> { "X'5b5d'" }
+    t.integer "follower"
+    t.integer "following"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
