@@ -51,17 +51,11 @@ class PostController < ApplicationController
   end
 
   def find_my_post
-    @post = Post.find_by(author: params[:id])
+    @posts = Post.where(author: params[:author])
 
-    if !@post.nil?
-      render json: {
-        success: false,
-      }
-    else
-      render json: {
-        success: true,
-        body: @post
-      }
-    end
+    render json: {
+      success: true,
+      body: @posts
+    }
   end
 end

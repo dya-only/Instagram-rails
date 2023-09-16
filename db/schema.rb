@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema[7.0].define(version: 2023_09_15_111605) do
   create_table "posts", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
-    t.string "author"
+    t.integer "author"
     t.string "img"
     t.string "content"
     t.integer "likes"

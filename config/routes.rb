@@ -16,5 +16,5 @@ Rails.application.routes.draw do
   post '/api/post' => 'post#create_post', controller: 'post'
   get '/api/post' => 'post#find_all', controller: 'post'
   get '/api/post/:id' => 'post#find_by_id', controller: 'post'
-  get '/api/post/@me/:id' => 'post#find_my_post', controller: 'post'
+  get '/api/post/@me/:author' => 'post#find_my_post', controller: 'post'
 end
