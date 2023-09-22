@@ -4,14 +4,6 @@ class PostController < ApplicationController
   def create_post
     @post = Post.new
 
-    if !params[:img] || !params[:content]
-      render json: {
-        success: false,
-        message: '이미지 또는 내용이 작성되지 않았어요.'
-      }
-      return
-    end
-
     @post.author = params[:author]
     @post.img = params[:img]
     @post.content = params[:content]

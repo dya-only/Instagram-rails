@@ -17,4 +17,9 @@ Rails.application.routes.draw do
   get '/api/post' => 'post#find_all', controller: 'post'
   get '/api/post/:id' => 'post#find_by_id', controller: 'post'
   get '/api/post/@me/:author' => 'post#find_my_post', controller: 'post'
+
+  post '/api/comment' => 'comment#create_comment', controller: 'comment'
+  get '/api/comment' => 'comment#find_all', controller: 'comment'
+  get '/api/comment/:post_id' => 'comment#find_by_post', controller: 'comment'
+  delete '/api/comment/:id' => 'comment#delete_comment', controller: 'comment'
 end
