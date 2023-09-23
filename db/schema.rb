@@ -25,7 +25,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_22_025130) do
     t.string "img"
     t.string "content"
     t.integer "likes"
-    t.binary "comments", size: :medium, default: -> { "X'5b5d'" }
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -8,7 +8,6 @@ class PostController < ApplicationController
     @post.img = params[:img]
     @post.content = params[:content]
     @post.likes = 0
-    @post.comments = '[]'
     @post.save
 
     render json: {
@@ -50,4 +49,16 @@ class PostController < ApplicationController
       body: @posts
     }
   end
+
+  # def find_main_post
+  #   if Post.count < params[:next].to_i
+  #     @posts = Post.where.not(author: params[:author]).offset((params[:next].to_i * 2 - 1).limit(10))
+  #   end
+  #
+  #   render json: {
+  #     success: true,
+  #     body: @posts,
+  #     next: params[:next].to_i + 1
+  #   }
+  # end
 end
