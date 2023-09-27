@@ -50,15 +50,13 @@ class PostController < ApplicationController
     }
   end
 
-  # def find_main_post
-  #   if Post.count < params[:next].to_i
-  #     @posts = Post.where.not(author: params[:author]).offset((params[:next].to_i * 2 - 1).limit(10))
-  #   end
-  #
-  #   render json: {
-  #     success: true,
-  #     body: @posts,
-  #     next: params[:next].to_i + 1
-  #   }
-  # end
+  def find_part_post
+    @posts = Post.where.not(author: params[:author]).offset(params[:next] * 10).limit((params[:next] * 10).to_i + 10)
+
+    render json: {
+      success: true,
+      body: @posts,
+      next: params[:next].to_i + 1
+    }
+  end
 end
